@@ -1,0 +1,69 @@
+.form-group{
+	margin-bottom: 15px;
+}
+.form-control{
+	width: 100%;
+	padding: 7px 12px;
+	display: block;
+}
+/* Base on AdminLTE Style */
+.form-control {
+    border-radius: 0;
+    box-shadow: none;
+    border-color: #d2d6de;
+}
+.form-control:focus{
+	border-color: #3c8dbc;
+	box-shadow: none;
+	outline: 0;
+}
+.has-error label {
+    color: #dd4b39;
+}
+.has-error .form-control, .has-error .input-group-addon {
+    border-color: #dd4b39 !important;
+    box-shadow: none !important;
+}
+.has-success label {
+    color: #00a65a;
+}
+.has-success .form-control, .has-success .input-group-addon {
+    border-color: #00a65a !important;
+    box-shadow: none !important;
+}
+.has-warning label {
+    color: #f39c12;
+}
+.has-warning .form-control, .has-warning .input-group-addon {
+    border-color: #f39c12 !important;
+    box-shadow: none !important;
+}
+/* End AdminLTE Style */
+.has-changes label{
+	color: inherit;
+}
+.has-changes .form-control, .has-changes .input-group-addon {
+	border-color: none !important;
+	box-shadow: none !important;
+}
+.has-empty label{
+	color: #a94442;
+}
+.has-empty .form-control, .has-empty .input-group-addon {
+    border-color: #a94442 !important;
+    box-shadow: none !important;
+}
+.has-unmatch label{
+    color: #DB2828;
+}
+.has-unmatch .form-control, .has-unmatch .input-group-addon {
+    border-color: #DB2828 !important;
+    box-shadow: none !important;
+}
+.has-unsuit label{
+    color: #F3CF12;
+}
+.has-unsuit .form-control, .has-unsuit .input-group-addon {
+    border-color: #F3CF12 !important;
+    box-shadow: none !important;
+}
