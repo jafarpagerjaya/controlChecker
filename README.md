@@ -174,3 +174,32 @@ Email validation has 2 ways to use it. First using a type `email`, and the secon
     </tr>
   </tbody>
 </table>
+<h3>Option</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Option Name</th>
+      <th>Option Rule</th>
+      <th>Option Value</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2">modal</td>
+      <td>enabled</td>
+      <td><b>true</b> or <b>false</b></td>
+      <td><b>true</b>
+      <td>Set plugin active even inside modal</td>
+    </tr>
+    <tr>
+      <td>id</td>
+      <td><b>String</b></td>
+      <td><b>myModal</b>
+      <td>Set id modal</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1>Updated Doc 3/23/2018. Other Doc On Progress</h1>
