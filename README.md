@@ -10,3 +10,11 @@ awsome <b>validation input</b> types, specially for email.</p>
   <li>Load css & js file</li>
   <li>Init plugins</li>
 </ul>
+<h3>Example</h3>
+<blockquote>HTML</blockquote>
+
+`<input type="text" class="check">`
+
+<blockquote>JS</blockquote>
+
+`$('.check').controlChecker();`
