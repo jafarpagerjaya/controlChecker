@@ -48,7 +48,7 @@ By default it will read minleght and maxlength for example you need input for pi
       <td>lower text</td>
     </tr>
     <tr>
-      <td>textlowercase</td>
+      <td>textuppercase</td>
       <td>Change text to upper case</td>
       <td>upper teXt</td>
       <td>UPPER TEXT</td>
@@ -58,6 +58,119 @@ By default it will read minleght and maxlength for example you need input for pi
       <td>Change text to init case</td>
       <td>init TEXT</td>
       <td>Init Text</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>Email Validation</blockquote>
+
+`<input type="email" class="check">` or `<input type="text" name="your_email" class="check">`
+
+Email validation has 2 ways to use it. First using a type `email`, and the second way is using a name attribut which contains `email`.
+
+<table>
+  <thead>
+    <tr>
+      <th>Input</th>
+      <th>Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>controlchekcer@flt.id</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>controlchecker@gm.id</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>controlchekcer@flt.co.jp</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>controlchecker@flt.i</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>controlchecker@flt.i2</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>controlchecker@flt.co.jp.kr</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>controlchecker1@flt.id</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>1controlchecker@flt.id</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>-controlchecker1@flt.id</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>_controlchecker1@flt.id</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>control_checker1@flt.id</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>control-checker1@flt.id</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>control-c@flt.id</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>control-ck@flt.id</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>control_@flt.id</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>control_checker_validator@flt.id</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>control-checker-validator@flt.id</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>control_checker-@flt.id</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>control__checker@flt.id</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>control--checker@flt.id</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>controlchecker@@flt.id</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>controlchecker1@flt@co.id</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>controlchecker@f.id</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>c@flt.id</td>
+      <td>false</td>
     </tr>
   </tbody>
 </table>
