@@ -77,7 +77,7 @@ Email validation has 2 ways to use it. First using a type `email`, and the secon
   </thead>
   <tbody>
     <tr>
-      <td>controlchekcer@flt.id</td>
+      <td>controlchecker@flt.id</td>
       <td>true</td>
     </tr>
     <tr>
@@ -85,7 +85,7 @@ Email validation has 2 ways to use it. First using a type `email`, and the secon
       <td>true</td>
     </tr>
     <tr>
-      <td>controlchekcer@flt.co.jp</td>
+      <td>controlchecker@flt.co.jp</td>
       <td>true</td>
     </tr>
     <tr>
