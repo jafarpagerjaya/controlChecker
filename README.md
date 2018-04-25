@@ -218,4 +218,4 @@ Email validation has 2 ways to use it. First using a type `email`, and the secon
   </tbody>
 </table>
 
-<h1>Updated Doc 3/23/2018. Other Doc On Progress</h1>
+<h1>Updated Doc 4/25/2018. Other Doc On Progress</h1>
