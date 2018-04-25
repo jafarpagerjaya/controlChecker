@@ -459,13 +459,13 @@ Email validation has 2 ways to use it. First using a type `email`, and the secon
       <td>dataType</td>
       <td>String</td>
       <td><b>json</b></td>
-      <td>Set Type Data Ajax</td>
+      <td>Set type data ajax</td>
     </tr>
     <tr>
       <td>errorText</td>
       <td>String</td>
       <td><b>Gagal Melakukan Ajax</b></td>
-      <td>Set ouptput text when ajax return error</td>
+      <td>Set output text when ajax return error</td>
     </tr>
     <tr>
       <td rowspan="4">prevChained</td>
