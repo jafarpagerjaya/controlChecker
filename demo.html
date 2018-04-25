@@ -11,7 +11,7 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
 	</script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<script src="jquery.controlChecker.min.js"></script>
+	<script src="jquery.controlChecker.js"></script>
 	
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -41,7 +41,14 @@
 		    								 changes: {
 		    								 	showText: false
 		    								 },
-		    								 formId: 'simpan'
+		    								 formId: 'simpan',
+		    								 match: {
+		    								 	matchThisId: 'inputKTPU',
+		    								 	matchToId: 'inputTPU'
+		    								 },
+		    								 ajax: {
+		    								 	errorText: 'Ajax Request Failed!'
+		    								 }
 		    });
 		});
 	</script>
@@ -69,47 +76,57 @@
 		</section>
 		<section class="content">
 			<form id="simpan" action="#" method="POST">
-			<div class="box">
-				<div class="box-header with-border">
-					<div class="row">
-						<div class="col-md-6 col-sm-6">
-							<h4 class="modal-title">
-								<span class="glyphicon glyphicon-plus-sign"></span> Form Tambah Data User
-							</h4>
-						</div>
-					</div>
-				</div>
-				<div class="box-body">
-					<div class="row">
-						<div class="col-md-6 col-sm-12">
-							<label for="inputTID">ID User</label>
-							<input id="inputTID" class="form-control" name="user_id" value="0000000006" type="text" readonly>
-							<label for="inputTNU">Nama User</label>
-							<input id="inputTNU" class="form-control textcapitalcase" name="nama_user" minlength="5" maxlength="30" type="text" required>
-						</div>
-						<div class="col-md-6 col-sm-12">
-							<div class="form-group">
-								<label for="inputTPU">PIN User</label>
-								<input id="inputTPU" class="form-control digit" name="pin_user" minlength="6" maxlength="6" type="text">
-							</div>
-							<div id="email" class="form-goups">
-								<label for="inputTEU">E-mail User</label>
-								<input id="inputTEU" class="form-control textlowercase" name="email_user" type="email" required>
+				<div class="box">
+					<div class="box-header with-border">
+						<div class="row">
+							<div class="col-md-6 col-sm-6">
+								<h4 class="modal-title">
+									<span class="glyphicon glyphicon-plus-sign"></span> Form Tambah Data User
+								</h4>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="box-footer">
-					<div class="row">
-						<div class="col-md-6 col-xs-6">
-							<input type="reset" style="width: 75px;" class="btn btn-default btn-flat pull-right" value="Reset">
+					<div class="box-body">
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<label for="inputTID">ID User</label>
+								<input id="inputTID" class="form-control" name="user_id" value="0000000006" type="text" readonly>
+								<label for="inputTNU">Nama User</label>
+								<input id="inputTNU" class="form-control textcapitalcase" name="nama_user" minlength="5" maxlength="30" type="text" required>
+							</div>
+							<div class="col-md-6 col-sm-12">
+								<div class="row">
+									<div class="col-md-6 col sm-12">
+										<div class="form-group">
+											<label for="inputTPU">PIN User</label>
+											<input id="inputTPU" class="form-control digit" name="pin_user" minlength="6" maxlength="6" type="text">
+										</div>
+									</div>
+									<div class="col-md-6 col sm-12">
+										<div class="form-group">
+											<label for="inputKTPU">Konfirmasi PIN User</label>
+											<input id="inputKTPU" class="form-control digit" name="kpin_user" minlength="6" maxlength="6" type="text">
+										</div>
+									</div>
+								</div>
+								<div id="email" class="form-goups">
+									<label for="inputTEU">E-mail User</label>
+									<input id="inputTEU" class="form-control textlowercase" name="email_user" data-table="users" required>
+								</div>
+							</div>
 						</div>
-						<div class="col-md-6 col-xs-6">
-							<button type="submit" name="tambah" style="width: 75px;" class="btn btn-primary btn-flat pull-left">Simpan</button>
+					</div>
+					<div class="box-footer">
+						<div class="row">
+							<div class="col-md-6 col-xs-6">
+								<input type="reset" style="width: 75px;" class="btn btn-default btn-flat pull-right" value="Reset">
+							</div>
+							<div class="col-md-6 col-xs-6">
+								<button type="submit" name="tambah" style="width: 75px;" class="btn btn-primary btn-flat pull-left">Simpan</button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 			</form>
 		</section>
 	</div>

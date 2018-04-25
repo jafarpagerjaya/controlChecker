@@ -2,6 +2,7 @@
 	$.fn.controlChecker = function( options ) {
 		// init default options
 		var settings = $.extend(true, {
+			cssFramework: 'boostrap',
 			modal: {
 				enabled: true,
 				id: 'myModal'
@@ -36,7 +37,8 @@
 			match: {
 				class: 'has-unmatch',
 				showText: true,
-				text: 'Belum Sama',
+				unmatchText: 'Belum Sama',
+				matchText: '',
 				matchThisId: null,
 				matchToId: null
 			},
@@ -59,7 +61,8 @@
 			ajax: {
 				url: null,
 				type: 'get',
-				dataType: 'json'
+				dataType: 'json',
+				errorText: 'Gagal Melakukan Ajax'
 			},
 			prevChained: false
 		}, options);
@@ -100,12 +103,34 @@
 			});
 		}
 
+		function fromModalControl($this) {
+			var thisModal = $(this);
+				thisModal.find('div').removeClass(settings.match.class+' '+settings.unsuit.class+' '+settings.warning.class+' '+settings.success.class+' '+settings.changes.class+' '+settings.empty.class+' '+settings.error.class);
+
+					if (settings.formId != null) {
+						thisInput = thisModal.find('input[type!="hidden"],textarea,select').filter('[type!="reset"]').filter('[type!="submit"]').filter('[type!="button"]').filter('[type!="checkbox"]').filter('[type!="radio"]').filter('[type!="file"]');
+
+						thisInput.each(function() {
+							var $this = $(this);
+								formGroupControl.call($this);
+						});
+					}
+				
+				thisModal.find('label > i, label > span:last-of-type').remove();
+				thisModal.find(':submit').attr('disabled','disabled');
+		}
+
 		function toCapitalizeCase($string) {
 			return $string.toLowerCase().replace(/(?:_)/g, ' ').replace(/(?:' '|\b)(\w)/g, function(str, p1) { return p1.toUpperCase()}).replace(/[ ]{2,}/, ' ').replace(/[^\w\d\s,.-]/g, function(str, p2) { return p2 = ' '});
 		}
 
 		function isUpperCase($string) {
 			return $string.toUpperCase() === $string;
+		}
+
+		// init parent class
+		if (settings.cssFramework == 'sui') {
+			settings.parentClass = 'field';
 		}
 
 		// init form control
@@ -147,22 +172,22 @@
 
 		// init modal control
 		if (settings.modal.enabled == true) {
-			$("#"+settings.modal.id+"").on("show.bs.modal", function() {
-				var thisModal = $(this);
-					thisModal.find('div').removeClass(settings.match.class+' '+settings.unsuit.class+' '+settings.warning.class+' '+settings.success.class+' '+settings.changes.class+' '+settings.empty.class+' '+settings.error.class);
-
-					if (settings.formId != null) {
-						thisInput = thisModal.find('input[type!="hidden"],textarea,select').filter('[type!="reset"]').filter('[type!="submit"]').filter('[type!="button"]').filter('[type!="checkbox"]').filter('[type!="radio"]').filter('[type!="file"]');
-
-						thisInput.each(function() {
-							var $this = $(this);
-								formGroupControl.call($this);
-						});
-					}
-				
-				thisModal.find('label > i, label > span:last-of-type').remove();
-				thisModal.find(':submit').attr('disabled','disabled');
-			});
+			switch(settings.cssFramework) {
+				case 'sui':
+					$("#"+settings.modal.id+"").modal({
+						onShow: function() {
+							var thisModal = $(this);
+								fromModalControl.call(thisModal);
+							}
+					});
+				break;
+				default: 
+					$("#"+settings.modal.id+"").on("show.bs.modal", function() {
+						var thisModal = $(this);
+							fromModalControl.call(thisModal);
+					});
+				break;
+			}
 		}
 
 		var warning,
@@ -173,9 +198,17 @@
 			var selfIdValue,
 				storedValue,
 				storedPreVal,
-				storedPreName;
+				storedPreName,
+				storedLabel;
 
 			$(this).addClass('form-control');
+
+			$(this).one('focusin', function() {
+				var self = $(this);
+				if (self.siblings().is('label')) {
+					storedLabel = true;
+				}
+			});
 
 			$(this).on("focusin", function() {
 				var self = $(this);
@@ -239,10 +272,6 @@
 
 				if (isUpperCase(self.val())) {
 					self.val(self.val().toUpperCase());
-				} else {
-					if (selfType !== 'email') {
-						self.val(self.val().toLowerCase().replace(/(?:_' '|\b)(\w)/g, function(str, p1) { return p1.toUpperCase()}));
-					}
 				}
 
 				selfLabel = iconControl.call(selfLabel);
@@ -273,7 +302,7 @@
 
 				if (selfType.includes('email')) {
 					self.val(self.val().toLowerCase().replace(/[^a-zA-Z0-9@._-]/g, ''));
-					var emailPatt = /^([^\d\_\-\@])+([^\@\_\-])*((([^\d\@]){0,1})[a-z]{2,}){0,1}(@([a-zA-Z]{2,})+(\.([a-z]{2,})){1,2})$/;
+					var emailPatt = /^([^\.\_\-\@])+([^\.\@\_\-])*((([^\d\@]){0,1})[a-z0-9]{2,}){0,1}(@([a-zA-Z]{2,})+(\.([a-z]{2,})){1,2})$/;
 					if (!self.val().match(emailPatt)) {
 						selfParent.removeClass(settings.empty.class+' '+settings.match.class+' '+settings.changes.class+' '+settings.error.class+' '+settings.success.class+' '+settings.warning.class).addClass(settings.unsuit.class);
 						selfLabel.children('i').attr("class", iconUnsuit);
@@ -291,67 +320,62 @@
 					case settings.match.matchThisId: // macthing field
 						console.log(settings.match.matchThisId);
 						matchTo = $('#'+settings.match.matchToId);
-						if (matchTo.val().length < 1) {
-							selfParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class);
+						if (storedLabel != true) {
 							selfLabel.hide();
 							self.next('span.glyphicon').css('top','0');
-							return false;
 						}
-						matchParent = matchTo.parents('.'+settings.parentClass),
-						matchLabel = matchParent.find('label');
+						if (matchTo.val().length < 1) {
+							selfParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class+' '+settings.changes.class);
+							selfLabel.children('span:last-of-type').text('');
+							self.next('span.glyphicon').css('top','0');
+							return false;
+						}						
 						if (self.val() !== matchTo.val()) {
 							if (settings.match.showText == true) {
-								selfParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class).addClass(settings.match.class);
+								selfParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class+' '+settings.changes.class).addClass(settings.match.class);
 								selfLabel.show();
 								selfLabel.children('i').attr("class", iconUnmatch);
+								selfLabel.children('span:last-of-type').text(' '+settings.match.unmatchText);
 								self.next('span.glyphicon').removeAttr('style');
-								selfLabel.children('span:last-of-type').text(' '+settings.match.text);
 							}
 							return false;
 						}
-						matchParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class+' '+settings.match.class);
-						matchLabel.children('span:last-of-type').text(' Sama');
-						matchLabel.hide();
-						matchTo.next('span.glyphicon').css('top','0');
-						selfParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class+' '+settings.match.class);
-						selfLabel.children('span:last-of-type').text(' OK');
-						selfLabel.hide();
-						self.next('span.glyphicon').css('top','0');
+						selfParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class+' '+settings.match.class).addClass(settings.changes.class);
+						selfLabel.children('span:last-of-type').text(' '+settings.match.matchText);
+						selfLabel.children('i').removeClass(iconUnmatch);
 						return false;
 					break;
 					case settings.match.matchToId: // matching reference field
-						console.log(settings.match.matchToId);
+						console.log(settings.match.matchToId+ ' '+1);
 						matchTo = $('#'+settings.match.matchThisId);
-						if (matchTo.val().length < 1) {
-							selfParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class);
-							selfLabel.hide();
-							self.next('span.glyphicon').css('top','0');
-							return false;
-						}
 						matchParent = matchTo.parents('.'+settings.parentClass),
 						matchLabel = matchParent.find('label');
+						if (storedLabel != true) {
+							matchLabel.hide();
+							selfLabel.hide();
+							matchTo.next('span.glyphicon').css('top','0');
+							self.next('span.glyphicon').css('top','0');
+						}
+						if (matchTo.val().length < 1) {
+							selfParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class+' '+settings.changes.class);
+							selfLabel.children('span:last-of-type').text('');
+							return false;
+						}
+						selfParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class+' '+settings.match.class);
+						selfLabel.children('span:last-of-type').text('');
 						if (self.val() !== matchTo.val()) {
 							if (settings.match.showText == true) {
-								matchParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class).addClass(settings.match.class);
+								matchParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class+' '+settings.changes.class).addClass(settings.match.class);
 								matchLabel.show();
 								matchLabel.children('i').attr("class", iconUnmatch);
-								matchLabel.children('span:last-of-type').text(' '+settings.match.text);
+								matchLabel.children('span:last-of-type').text(' '+settings.match.unmatchText);
 								matchTo.next('span.glyphicon').removeAttr('style');
-								selfParent.removeClass(settings.empty.class+' '+settings.error.class);
-								selfLabel.children('span:last-of-type').text(' '+settings.match.text);
-								selfLabel.hide();
-								self.next('span.glyphicon').css('top','0');
 							}
 							return false;
 						}
-						matchParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class+' '+settings.match.class);
-						matchLabel.children('span:last-of-type').text(' Sama');
-						matchLabel.hide();
-						matchTo.next('span.glyphicon').css('top','0');
-						selfParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class+' '+settings.match.class);
-						selfLabel.children('span:last-of-type').text(' OK');
-						selfLabel.hide();
-						self.next('span.glyphicon').css('top','0');
+						matchParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class+' '+settings.match.class).addClass(settings.changes.class);
+						matchLabel.children('span:last-of-type').text(' '+settings.match.matchText);
+						matchLabel.children('i').removeClass(iconUnmatch);
 						return false;
 					break;
 					default:
@@ -372,12 +396,14 @@
 						selfLabel.children('span:last-of-type').text(' '+settings.changes.text);
 					} else {
 						selfLabel.children('span:last-of-type').remove();
-					}					
+					}	
+					return false;				
 				}
 
 				if (selfTable !== undefined) {
 
 					selfVal = self.val();
+					selfParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class+' '+settings.success.class+' '+settings.changes.class+' '+settings.warning.class);
 
 					$.ajax({
 						url: settings.ajax.url,
@@ -393,13 +419,13 @@
 						success: function(data) {
 							if (data.exists !== undefined) {
 								if (data.exists === true) {
-									selfParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class+' '+settings.success.class+' '+settings.changes.class).addClass(settings.warning.class);
+									selfParent.addClass(settings.warning.class);
 									selfLabel.children('i').attr("class", iconWarning);
 									if (settings.error.showText == true) {
 										selfLabel.children('span:last-of-type').text(' '+settings.warning.text);
 									}
 								} else {
-									selfParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class+' '+settings.warning.class+' '+settings.changes.class).addClass(settings.success.class);
+									selfParent.addClass(settings.success.class);
 									selfLabel.children('i').attr("class", iconSuccess);
 									if (settings.error.showText == true) {
 										selfLabel.children('span:last-of-type').text(' '+settings.success.text);
@@ -408,8 +434,13 @@
 								// console.log(data.exists);
 							}
 						},
-						error: function() {
-						// 	// Saat terjadi kesalahan
+						error: function(xhr) {
+							// Saat terjadi kesalahan
+							selfParent.addClass(settings.error.class);
+							selfLabel.children('span:last-of-type').text(' '+settings.ajax.errorText);
+							if (xhr.status === 0) {
+								console.log('Ajax Error Status ['+xhr.status+']');
+							}
 						}
 					});
 
@@ -422,7 +453,7 @@
 				if (/[^a-zA-Z0-9\s@,._-]/i.test(String.fromCharCode(e.which))) {
 	        		e.preventDefault();
 	        	}
-				if (self.hasClass("nospace") || self.attr("type") == "email" || self.attr("name") == "email" || self.data('type') == "email") {
+				if (self.hasClass("nospace") || self.attr("type") == "email" || self.attr("name").includes("email") || self.data('type') == "email") {
 					if (e.which === 32) {
 	        			return false;
 	        		}

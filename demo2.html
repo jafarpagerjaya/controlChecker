@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CEK PROJECT</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css" integrity="sha256-oDCP2dNW17Y1QhBwQ+u2kLaKxoauWvIGks3a4as9QKs=" crossorigin="anonymous" />
+	<link rel="stylesheet" href="controlChecker.css">
+	<style>
+		.ui.modal .content .ui.header:not(:first-child) { margin-top: 7px; }
+		.ui.modal .content .ui.header { margin-bottom: 0px; }
+		.ui.modal .content > .ui.grid > .ui.column:first-child { padding-left: 0px; padding-top: 0px; padding-bottom: 0px; }
+		.ui.modal .content > .ui.grid > .ui.column:last-child { padding-right: 0px; padding-top: 0px; padding-bottom: 0px; }
+		.ui.modal.thrid .content { text-align: center; }
+		label { font-size: 1em !important; }
+		@media only screen and (max-width: 425px) { 
+			.ui.modal#confirm > .actions { text-align: center; }
+		}
+		.ui.dimmable .ui.dimmer input[type="file"] { display: none; }
+		.text.white {
+		  color: #FFFFFF;
+		}
+		.text.grey {
+		  color: #CCCCCC;
+		}
+		.text.black {
+		  color: #1B1C1D;
+		}
+		.text.yellow {
+		  color: #F2C61F;
+		}
+		.text.teal {
+		  color: #00B5AD;
+		}
+		.text.red {
+		  color: #D95C5C;
+		}
+		.text.purple {
+		  color: #564F8A;
+		}
+		.text.pink {
+		  color: #D9499A;
+		}
+		.text.orange {
+		  color: #E07B53;
+		}
+		.text.green {
+		  color: #5BBD72;
+		}
+		.text.blue {
+		  color: #3B83C0;
+		}
+	</style>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js" integrity="sha256-RKNmL9+6j/3jB72OcIg8OQr91Bi4OgFPnKQOFS1O+fo=" crossorigin="anonymous"></script>
+	<script src="jquery.controlChecker.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".data-popup").click(function () {
+				$('.small.modal').modal('show');
+		       	var self = $(this),
+		        	id = self.data('id'),
+		        	name = self.data('name'),
+		        	pin = self.data('pin'),
+		        	email = self.data('email');
+
+		        $(this).find('form').attr("id", id);
+		        $(".idText").text(id);
+		        $(".nameText").text(name);
+		        $(".idVal").val(id);
+		        $(".nameVal").val(name);
+		        $(".pinVal").val(pin);
+		        $(".emailVal").val(email);
+
+		        $('.ui.form').form('set defaults');
+		    });
+		    $(".form-control").controlChecker({ 
+		    								 cssFramework: 'sui',
+		  									 modal: {
+		    									id: 'ubah'
+		    								 },
+		    								 icon: {
+		    								 	enabled: true,
+		    								 	position: 'before',
+		    								 	success: 'check icon',
+												warning: 'bell icon',
+												empty: 'info icon',
+												error: 'info circle icon',
+												unmatch: 'exclamation circle icon',
+												unsuit: 'exclamation icon'
+		    								 },
+		    								 // parentClass: 'field',
+		    								 formId: 'simpan',
+		    								 match: {
+		    								 	matchThisId: 'inputKTPU',
+		    								 	matchToId: 'inputTPU'
+		    								 },
+		    								 ajax: {
+		    								 	errorText: 'Ajax Request Failed!'
+		    								 }
+		    });
+		    $(".ui.reset.button").click(function() {
+		    	$(this).parents('.modal').find('.ui.form').form('reset');
+		    });
+		});
+	</script>
+</head>
+<body>
+	<div class="ui one column grid padded">
+		<section class="column">
+			<ul class="ui list">
+				<li>
+					<a href="#" class="data-popup" data-id="0000000001" data-name="User 1" data-pin="111111"  data-email="user1@controlchecker.com">User 1</a>
+				</li>
+				<li>
+					<a href="#" class="data-popup" data-id="0000000002" data-name="User 2"  data-pin="222222" data-email="user2@controlchecker.com">User 2</a>
+				</li>
+				<li>
+					<a href="#" class="data-popup" data-id="0000000003" data-name="User 3"  data-pin="333333" data-email="user3@controlchecker.com">User 3</a>
+				</li>
+				<li>
+					<a href="#" class="data-popup" data-id="0000000004" data-name="User 4"  data-pin="444444" data-email="user4@controlchecker.com">User 4</a>
+				</li>
+				<li>
+					<a href="#" class="data-popup" data-id="0000000005" data-name="User 5"  data-pin="555555" data-email="user5@controlchecker.com">User 5</a>
+				</li>
+			</ul>
+		</section>
+		<section class="column">
+			<form class="ui form" id="simpan" action="#" method="POST">
+				<div class="ui segments">
+					<div class="ui segment">
+						<h3 class="ui header">
+							<i class="plus circle icon"></i>
+							<div class="content">Form Tambah Data User</div>
+						</h3>
+					</div>
+					<div class="ui segment">
+						<div class="ui equal width grid stackable">
+							<div class="column">
+								<label for="inputTID">ID User</label>
+								<input id="inputTID" class="form-control" name="user_id" value="0000000006" type="text" readonly>
+								<label for="inputTNU">Nama User</label>
+								<input id="inputTNU" class="form-control textcapitalcase" name="nama_user" minlength="5" maxlength="30" type="text" required>
+							</div>
+							<div class="column">
+								<div class="ui equal width grid stackable">
+									<div class="column">
+										<div class="form-group">
+											<label for="inputTPU">PIN User</label>
+											<input id="inputTPU" class="form-control digit" name="pin_user" minlength="6" maxlength="6" type="text">
+										</div>
+									</div>
+									<div class="column">
+										<div class="form-group">
+											<label for="inputKTPU">Konfirmasi PIN User</label>
+											<input id="inputKTPU" class="form-control digit" name="kpin_user" minlength="6" maxlength="6" type="text">
+										</div>
+									</div>
+									<div class="row" style="padding-top: 0px;">
+										<div class="column">
+											<div id="email" class="form-goups">
+												<label for="inputTEU">E-mail User</label>
+												<input id="inputTEU" class="form-control textlowercase" name="email_user" data-table="users" required>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="ui segment">
+						<div class="ui equal width grid divided">
+							<div class="column">
+								<button class="ui reset button right floated" type="reset">Reset</button>
+							</div>
+							<div class="column">
+								<button type="submit" name="tambah" class="ui button blue left floated">Simpan</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</section>
+		<div class="ui small modal" id="ubah">
+			<i class="close icon"></i>
+			<div class="ui header">
+				<i class="file icon"></i>
+				<div class="content">
+					Pembaharuan Data <span class="nameText text teal"></span>
+				</div>
+			</div>
+			<div class="content">
+				<form class="ui form" action="">
+					<div class="ui equal width grid stackable">
+					    <div class="column 1">
+					    	<input class="idVal" name="id_user" type="hidden" required>
+					    	<div class="field has-success">
+					            <label for="inputEID"><i class="fa fa-check"></i> ID User <span>Tersedia</span></label>
+					            <input id="inputEID" class="form-control idVal" minlength="10" maxlength="10" name="id_user" type="text" required>
+					        </div>
+							<div class="fields">
+					            <label for="inputENU">Nama User</label>
+					            <input id="inputENU" class="form-control nameVal textlowercase" style="text-transform: capitalize;" minlength="5" maxlength="30" name="nama_user" type="text" required>
+					        </div>
+					    </div>
+					    <div class="column 2">
+					        	<label for="inputEPU">PIN User</label>
+					            <input id="inputEPU" class="form-control digit pinVal" minlength="6" maxlength="6" name="pin_user" type="text" required>
+					        	<label for="inputEEU">Email User</label>
+					            <input id="inputEEU" class="form-control textlowercase emailVal" maxlength="50" name="email_user" type="email" data-type="email" required>
+					    </div>
+					</div>
+				</form>
+			</div>
+			<div class="actions">
+				<div class="ui grey reset button">Reset</div>
+				<div class="ui green right labeled icon save button">Simpan Data <i class="checkmark icon"></i></div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal -->
+	
+	<!-- End Modal -->
+</body>
+</html>
