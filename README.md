@@ -71,6 +71,14 @@ Email validation has 2 ways to use it. First using a type `email`, and the secon
 <table>
   <thead>
     <tr>
+      <th>Alowed Charakter</th>
+      <th>Alowed Email Format</th>
+    </tr>
+    <tr>
+      <td>[alphabet], [numeric], [at], [dot], [underscore], [hyphen]</td>
+      <td>Google & Yahoo Format</td>
+    </tr>
+    <tr>
       <th>Input</th>
       <th>Result</th>
     </tr>
@@ -106,6 +114,14 @@ Email validation has 2 ways to use it. First using a type `email`, and the secon
     </tr>
     <tr>
       <td>1controlchecker@flt.id</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>control.checker@flt.id</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>new.control-checker@flt.id</td>
       <td>false</td>
     </tr>
     <tr>
