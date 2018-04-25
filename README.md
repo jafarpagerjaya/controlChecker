@@ -215,6 +215,265 @@ Email validation has 2 ways to use it. First using a type `email`, and the secon
       <td><b>myModal</b>
       <td>Set id modal</td>
     </tr>
+    <tr>
+  <td>cssFramework</td>
+  <td>No Rule</td>
+  <td><b>Boostrap</b> or <b>SUI</b></td>
+  <td><b>Boostrap</b></td>
+  <td>Set supported smart grouping in css framework</td>
+</tr>
+<tr>
+  <td>formId</td>
+  <td>No RUle</td>
+  <td>String</td>
+  <td><b>null</b></td>
+  <td>Set supported smart grouping in form with specified id. By default will support with all form if not reset this option</td>
+</tr>
+<tr>
+  <td rowspan="3">changes</td>
+  <td>class</td>
+  <td>String</td>
+  <td><b>has-changes</b></td>
+  <td>Set class when value is change</td>
+</tr>
+<tr>
+  <td>showText</td>
+  <td><b>true</b> or <b>false</b></td>
+  <td><b>false</b></td>
+  <td>Set text condition will show or hide</td>
+</tr>
+<tr>
+  <td>text</td>
+  <td>String</td>
+  <td><b>Berganti</b></td>
+  <td>Text change value condition</td>
+</tr>
+<tr>
+  <td rowspan="3">success</td>
+  <td>class</td>
+  <td>String</td>
+  <td><b>has-success</b></td>
+  <td>Set class when return value is success after checking to server</td>
+</tr>
+<tr>
+  <td>showText</td>
+  <td><b>true</b> or <b>false</b></td>
+  <td><b>true</b></td>
+  <td>Set text success will show or hide</td>
+</tr>
+<tr>
+  <td>text</td>
+  <td>String</td>
+  <td><b>Tersedia</b></td>
+  <td>Text success value condition</td>
+</tr>
+<tr>
+  <td rowspan="3">warning</td>
+  <td>class</td>
+  <td>String</td>
+  <td><b>has-warning</b></td>
+  <td>Set class when return value is not success after checking to server</td>
+</tr>
+<tr>
+  <td>showText</td>
+  <td><b>true</b> or <b>false</b></td>
+  <td><b>true</b></td>
+  <td>Set text warning will show or hide</td>
+</tr>
+<tr>
+  <td>text</td>
+  <td>String</td>
+  <td><b>Sudah Terpakai</b></td>
+  <td>Text warning value condition</td>
+</tr>
+<tr>
+  <td rowspan="3">empty</td>
+  <td>class</td>
+  <td>String</td>
+  <td><b>has-empty</b></td>
+  <td>Set class when input field less then 1 charakter</td>
+</tr>
+<tr>
+  <td>showText</td>
+  <td><b>true</b> or <b>false</b></td>
+  <td><b>true</b></td>
+  <td>Set text empty will show or hide</td>
+</tr>
+<tr>
+  <td>text</td>
+  <td>String</td>
+  <td><b>Tidak Boleh Kosong</b></td>
+  <td>Text empty value condition</td>
+</tr>
+<tr>
+  <td rowspan="4">error</td>
+  <td>class</td>
+  <td>String</td>
+  <td><b>has-error</b></td>
+  <td>Set class input length less then minlength attribut or more then maxlength attribut or ajax return error</td>
+</tr>
+<tr>
+  <td>showText</td>
+  <td><b>true</b> or <b>false</b></td>
+  <td><b>true</b></td>
+  <td>Set text error will show or hide</td>
+</tr>
+<tr>
+  <td>text</td>
+  <td>String</td>
+  <td><b>Masih Kurang</b></td>
+  <td>Text success value condition</td>
+</tr>
+<tr>
+  <td>secondText</td>
+  <td>String</td>
+  <td><b>Karakter</b></td>
+  <td>Second text success value condition</td>
+</tr>
+<tr>
+  <td rowspan="5">match</td>
+  <td>class</td>
+  <td>String</td>
+  <td><b>has-unmatch</b></td>
+  <td>Set class when matching fields are not match</td>
+</tr>
+<tr>
+  <td>showText</td>
+  <td><b>true</b> or <b>false</b></td>
+  <td><b>true</b>
+  <td>Set text unmatch will show or hide</td>
+</tr>
+<tr>
+  <td>unmatchText</td>
+  <td>String</td>
+  <td><b>Belum Sama</b></td>
+  <td>Text when unmatch return result</td>
+</tr>
+<tr>
+  <td>matchText</td>
+  <td>String</td>
+  <td></td>
+  <td>Text when matching return result</td>
+</tr>
+<tr>
+  <td>matchThisId</td>
+  <td>String</td>
+  <td><b>null</b></td>
+  <td>Set match input id</td>
+</tr>
+<tr>
+  <td>matchToId</td>
+  <td>String</td>
+  <td><b>null</b></td>
+  <td>Set matching to input id</td>
+</tr>
+<tr>
+  <td rowspan="3">unsuit</td>
+  <td>class</td>
+  <td>String</td>
+  <td><b>has-unsuit</b></td>
+  <td>Set class when email input field format not allowed</td>
+</tr>
+<tr>
+  <td>showText</td>
+  <td><b>true</b> or <b>false</b></td>
+  <td><b>true</b></td>
+  <td>Set text unsuit will show or hide</td>
+</tr>
+<tr>
+  <td>text</td>
+  <td>String</td>
+  <td><b>Tidak Boleh Kosong</b></td>
+  <td>Formatnya Belum Sesuai</td>
+</tr>
+<tr>
+  <td>parentClass</td>
+  <td></td>
+  <td>String</td>
+  <td><b>form-group</b></td>
+  <td>Set class for smart grouping</td>
+</tr>
+<tr>
+  <td rowspan="8">icon</td>
+  <td>enabled</td>
+  <td><b>true</b> or <b>false</b></td>
+  <td><b>true</b></td>
+  <td>Set icon class to show or hide</td>
+</tr>
+<tr>
+  <td>position</td>
+  <td><b>before</b> or <b>after</b></td>
+  <td><b>true</b></td>
+  <td>Set icon position before or after text</td>
+</tr>
+<tr>
+  <td>success</td>
+  <td>String</td>
+  <td><b>fa fa-check</b></td>
+  <td>Success icon</td>
+</tr>
+<tr>
+  <td>warning</td>
+  <td>String</td>
+  <td><b>fa fa-bell-o</b></td>
+  <td>Warning icon</td>
+</tr>
+<tr>
+  <td>empty</td>
+  <td>String</td>
+  <td><b>fa fa-info</b></td>
+  <td>Empty icon</td>
+</tr>
+<tr>
+  <td>error</td>
+  <td>String</td>
+  <td><b>fa fa-info-circle</b></td>
+  <td>Error icon</td>
+</tr>
+<tr>
+  <td>unmatch</td>
+  <td>String</td>
+  <td><b>fa fa-exclamation-circle</b></td>
+  <td>Unmatch icon</td>
+</tr>
+<tr>
+  <td>unsuit</td>
+  <td>String</td>
+  <td><b>fa fa-exclamation</b></td>
+  <td>Unsuit icon</td>
+</tr>
+<tr>
+  <td rowspan="4">ajax</td>
+  <td>url</td>
+  <td>String</td>
+  <td><b>null</b></td>
+  <td>Set url for ajax (checking data to server)</td>
+</tr>
+<tr>
+  <td>type</td>
+  <td><b>get</b> or <b>post</b></td>
+  <td><b>get</b></td>
+  <td>Set method transfer data for ajax (checking data to server)</td>
+</tr>
+<tr>
+  <td>dataType</td>
+  <td>String</td>
+  <td><b>json</b></td>
+  <td>Set Type Data Ajax</td>
+</tr>
+<tr>
+  <td>errorText</td>
+  <td>String</td>
+  <td><b>Gagal Melakukan Ajax</b></td>
+  <td>Set ouptput text when ajax return error</td>
+</tr>
+<tr>
+  <td rowspan="4">prevChained</td>
+  <td></td>
+  <td><b>true</b> or <b>false</b></td>
+  <td><b>false</b></td>
+  <td>Set ajax do checking with chained prev input field value (checking data to server)</td>
+</tr>
   </tbody>
 </table>
 
