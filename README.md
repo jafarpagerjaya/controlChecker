@@ -54,7 +54,7 @@ By default it will read minleght and maxlength for example you need input for pi
       <td>UPPER TEXT</td>
     </tr>
     <tr>
-      <td>textinitcase</td>
+      <td>textcapitalcase</td>
       <td>Change text to init case</td>
       <td>init TEXT</td>
       <td>Init Text</td>
