@@ -71,8 +71,8 @@ Email validation has 2 ways to use it. First using a type `email`, and the secon
 <table>
   <thead>
     <tr>
-      <th>Alowed Charakter</th>
-      <th>Alowed Email Format</th>
+      <th>Allowed Charakter</th>
+      <th>Allowed Email Format</th>
     </tr>
     <tr>
       <td>[alphabet], [numeric], [at], [dot], [underscore], [hyphen]</td>
