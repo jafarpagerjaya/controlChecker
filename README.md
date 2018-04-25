@@ -190,7 +190,7 @@ Email validation has 2 ways to use it. First using a type `email`, and the secon
     </tr>
   </tbody>
 </table>
-<h3>Option</h3>
+<h3>Options</h3>
 <table>
   <thead>
     <tr>
