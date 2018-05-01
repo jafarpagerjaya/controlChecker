@@ -403,7 +403,7 @@ Email validation has 2 ways to use it. First using a type `email`, and the secon
     <tr>
       <td>position</td>
       <td><b>before</b> or <b>after</b></td>
-      <td><b>true</b></td>
+      <td><b>before</b></td>
       <td>Set icon position before or after text</td>
     </tr>
     <tr>
