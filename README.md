@@ -443,7 +443,7 @@ Email validation has 2 ways to use it. First using a type `email`, and the secon
       <td>Unsuit icon</td>
     </tr>
     <tr>
-      <td rowspan="4">ajax</td>
+      <td rowspan="3">ajax</td>
       <td>url</td>
       <td>String</td>
       <td><b>null</b></td>
@@ -456,23 +456,29 @@ Email validation has 2 ways to use it. First using a type `email`, and the secon
       <td>Set method transfer data for ajax (checking data to server)</td>
     </tr>
     <tr>
-      <td>dataType</td>
-      <td>String</td>
-      <td><b>json</b></td>
-      <td>Set type data ajax</td>
-    </tr>
-    <tr>
       <td>errorText</td>
       <td>String</td>
       <td><b>Gagal Melakukan Ajax</b></td>
       <td>Set output text when ajax return error</td>
     </tr>
     <tr>
-      <td rowspan="4">prevChained</td>
-      <td></td>
+      <td rowspan="3">chained</td>
+      <td>enabled</td>
       <td><b>true</b> or <b>false</b></td>
       <td><b>false</b></td>
-      <td>Set ajax do checking with chained prev input field value (checking data to server)</td>
+      <td>Set enable ajax do checking with chained to other input field and send this (value and name) data to server for checking purpose with current input was invoked</td>
+    </tr>
+    <tr>
+      <td>id</td>
+      <td>String</td>
+      <td>null</td>
+      <td>set a chained id input tag for checking data to server</td>
+    </tr>
+    <tr>
+      <td>activeOnId</td>
+      <td>String</td>
+      <td>null</td>
+      <td>Set tag input id who will trigger chained id for checking purpose</td>
     </tr>
   </tbody>
   <tfoot>
@@ -486,4 +492,4 @@ Email validation has 2 ways to use it. First using a type `email`, and the secon
   </tfoot>
 </table>
 
-<h1>Updated Doc 4/25/2018. Other Doc On Progress</h1>
+<h1>Updated Doc 5/6/2018. Other Doc On Progress</h1>
