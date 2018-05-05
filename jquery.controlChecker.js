@@ -59,12 +59,15 @@
 				unsuit: 'fa fa-exclamation'
 			},
 			ajax: {
-				url: null,
+				url: 'null',
 				type: 'get',
-				dataType: 'json',
 				errorText: 'Gagal Melakukan Ajax'
 			},
-			prevChained: false
+			chained: {
+				enabled: false,
+				id: null,
+				activeOnId: null
+			}
 		}, options);
 
 		// private functions
@@ -197,8 +200,8 @@
 		return this.each(function() {
 			var selfIdValue,
 				storedValue,
-				storedPreVal,
-				storedPreName,
+				storedChainedVal,
+				storedChainedName,
 				storedLabel;
 
 			$(this).addClass('form-control');
@@ -222,11 +225,34 @@
 				if (selfIdValue !== self.parents('form').attr('id')) {
 					selfIdValue = self.parents('form').attr('id');
 					storedValue = self.val();
-					if (settings.prevChained == true) {
-						var prevchain = self.parents('.'+settings.parentClass).prev('.'+settings.parentClass);
-						storedPreVal = prevchain.find('select').val();
-						storedPreName = prevchain.find('select').attr("name");
+				}
+
+				if (settings.chained.enabled == true) {
+					if ($('input#'+settings.chained.activeOnId+', select#'+settings.chained.activeOnId).length == 0) {
+						console.log('undefined chained activeOnId');	
+						return false;
 					}
+					if ($('input#'+settings.chained.id+', select#'+settings.chained.id).length == 0) {
+						console.log('undefined chained id');	
+						return false;
+					}
+					if (self.attr('id') !== settings.chained.activeOnId) {
+						if (self.attr('id') !== settings.chained.id) {
+							return false;
+						}
+					}
+					var currChained = undefined;
+					switch(self.attr('id')) {
+						case settings.chained.id:
+							currChained = $('#'+settings.chained.activeOnId);
+						break;
+						default: 
+							currChained = $('#'+settings.chained.id);
+						break;
+					}
+					storedChainedVal = currChained.val();
+					storedChainName = currChained.attr("name");
+					console.log('chained name = '+storedChainName+' chained value = '+storedChainedVal);
 				}
 			});
 
@@ -396,7 +422,12 @@
 						selfLabel.children('span:last-of-type').text(' '+settings.changes.text);
 					} else {
 						selfLabel.children('span:last-of-type').remove();
-					}	
+					}
+					if (settings.chained.enabled == true) {
+						if (self.attr('id') == settings.chained.id) {
+							$('#'+settings.chained.activeOnId).trigger('change');
+						}
+					}
 					return false;				
 				}
 
@@ -408,13 +439,13 @@
 					$.ajax({
 						url: settings.ajax.url,
 						type: settings.ajax.type,
-						dataType: settings.ajax.dataType,
+						dataType: 'json',
 						data: {
-							columnName: selfType,
+							field: selfType,
 							table: selfTable,
 							value: selfVal,
-							prevColumnName: storedPreName,
-							prevColumnValue: storedPreVal
+							prevColumnName: storedChainedName,
+							prevColumnValue: storedChainedVal
 						},
 						success: function(data) {
 							if (data.exists !== undefined) {
@@ -438,9 +469,20 @@
 							// Saat terjadi kesalahan
 							selfParent.addClass(settings.error.class);
 							selfLabel.children('span:last-of-type').text(' '+settings.ajax.errorText);
+							solution = undefined;
 							if (xhr.status === 0) {
-								console.log('Ajax Error Status ['+xhr.status+']');
+								solution = 'Check Network Connection';
 							}
+							if (xhr.status === 200) {
+								solution = 'Check Server Returns Format';
+							}
+							if (xhr.status === 404) {
+								solution = 'Check Ajax Url';
+							}
+							if (xhr.status === 500) {
+								solution = 'Check Internal Server';
+							}
+							console.log('Ajax Error Status ['+xhr.status+'] => '+xhr.statusText+' => Solution '+solution);
 						}
 					});
 
@@ -477,14 +519,17 @@
 			});
 
 			$(this).on("focusout", function() {
-				warning = $(this).parents('form').find('.'+settings.warning.class).length;
-				success = $(this).parents('form').find('.'+settings.success.class).length;
-			 	changes = $(this).parents('form').find('.'+settings.changes.class).length;
-			 	danger = $(this).parents('form').find('.'+settings.empty.class+', .'+settings.error.class+', .'+settings.match.class+', .'+settings.unsuit.class).length;
+				setTimeout(function() {
+					warning = $(this).parents('form').find('.'+settings.warning.class).length;
+					success = $(this).parents('form').find('.'+settings.success.class).length;
+				 	changes = $(this).parents('form').find('.'+settings.changes.class).length;
+				 	danger = $(this).parents('form').find('.'+settings.empty.class+', .'+settings.error.class+', .'+settings.match.class+', .'+settings.unsuit.class).length;
 
-				if (((warning === 0) && (danger === 0)) && ((success > 0) || (changes > 0))) {
-					$(this).parents('form').find(':submit').removeAttr('disabled');
-				}
+					if (((warning === 0) && (danger === 0)) && ((success > 0) || (changes > 0))) {
+						$(this).parents('form').find(':submit').removeAttr('disabled');
+					}
+					console.log('W = '+warning+' D = '+danger+' C = '+changes+' S = '+success);
+				}, 100);
 			});
 		});
 	}

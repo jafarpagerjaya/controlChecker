@@ -71,3 +71,6 @@
     border-color: #F3CF12 !important;
     box-shadow: none !important;
 }
+.has-warning .form-control-feedback, .has-success .form-control-feedback, .has-error .form-control-feedback {
+    color: #333;
+}
