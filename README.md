@@ -64,9 +64,9 @@ By default it will read minleght and maxlength for example you need input for pi
 
 <blockquote>Email Validation</blockquote>
 
-`<input type="email" class="check">` or `<input type="text" name="your_email" class="check">`
+`<input type="email" class="check">` or `<input type="text" name="your_email" class="check">` or `<input type="text" name="abc" data-type="email">`
 
-Email validation has 2 ways to use it. First using a type `email`, and the second way is using a name attribut which contains `email`.
+Email validation has 3 ways to use it. First using a type `email`,the second way is using a name attribut which contains `email` and the last is using data atribut `data-type="email"`.
 
 <table>
   <thead>
