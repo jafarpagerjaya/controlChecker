@@ -71,9 +71,9 @@
 		}, options);
 
 		// private functions
-		function formGroupControl($this) {
+		function formGroupControl() {
 			var $this = $(this),
-				thisParent,
+			    thisParent,
 				parentSiblings,
 				grandParent,
 				grandParentClass,
@@ -110,7 +110,7 @@
 			var thisModal = $(this);
 				thisModal.find('div').removeClass(settings.match.class+' '+settings.unsuit.class+' '+settings.warning.class+' '+settings.success.class+' '+settings.changes.class+' '+settings.empty.class+' '+settings.error.class);
 
-					if (settings.formId != null) {
+					if (settings.formId !== null) {
 						thisInput = thisModal.find('input[type!="hidden"],textarea,select').filter('[type!="reset"]').filter('[type!="submit"]').filter('[type!="button"]').filter('[type!="checkbox"]').filter('[type!="radio"]').filter('[type!="file"]');
 
 						thisInput.each(function() {
@@ -130,6 +130,33 @@
 		function isUpperCase($string) {
 			return $string.toUpperCase() === $string;
 		}
+		
+		function iconControl() {
+			var $this = $(this);
+				$this.children('i').remove();
+				if (settings.icon.position === 'after') {
+					$this.append(' '+thisIcon);
+				} else {
+					$this.prepend(thisIcon+' ');
+				}
+			return $this;
+		}
+
+		var warning,
+			success,
+			changes,
+			danger;
+		function onFocusOut() {
+			warning = thisFrom.find('.'+settings.warning.class).length;
+			success = thisFrom.find('.'+settings.success.class).length;
+		 	changes = thisFrom.find('.'+settings.changes.class).length;
+		 	danger = thisFrom.find('.'+settings.empty.class+', .'+settings.error.class+', .'+settings.match.class+', .'+settings.unsuit.class).length;
+
+			if (((warning === 0) && (danger === 0)) && ((success > 0) || (changes > 0))) {
+				thisFrom.find(':submit').removeAttr('disabled');
+			}
+
+		}
 
 		// init parent class
 		if (settings.cssFramework == 'sui') {
@@ -138,7 +165,7 @@
 
 		// init form control
 		var thisFrom = $("#"+settings.formId);
-			if (settings.formId == null) {
+			if (settings.formId === null) {
 				thisFrom = $("form");	
 			}
 		
@@ -152,7 +179,7 @@
 			});
 
 		// init icon control
-		if (settings.icon.enabled == true) {
+		if (settings.icon.enabled === true) {
 			var thisIcon = "<i />",
 				iconSuccess = settings.icon.success,
 				iconWarning = settings.icon.warning,
@@ -160,21 +187,10 @@
 				iconError = settings.icon.error,
 				iconUnmatch = settings.icon.unmatch;
 				iconUnsuit = settings.icon.unsuit;
-
-			function iconControl($this) {
-				var $this = $(this);
-					$this.children('i').remove();
-					if (settings.icon.position === 'after') {
-						$this.append(' '+thisIcon);
-					} else {
-						$this.prepend(thisIcon+' ');
-					}
-				return $this;
-			}
 		}
 
 		// init modal control
-		if (settings.modal.enabled == true) {
+		if (settings.modal.enabled === true) {
 			switch(settings.cssFramework) {
 				case 'sui':
 					$("#"+settings.modal.id+"").modal({
@@ -193,16 +209,13 @@
 			}
 		}
 
-		var warning,
-			success,
-			changes,
-			danger;
 		return this.each(function() {
 			var selfIdValue,
 				storedValue,
 				storedChainedVal,
 				storedChainedName,
-				storedLabel;
+				storedLabel,
+				storedLabelHtml;
 
 			$(this).addClass('form-control');
 
@@ -218,21 +231,24 @@
 					
 				self.parents('form').find(':submit').attr('disabled','disabled');
 
-				if (settings.modal.enabled != true) {
+				if (settings.modal.enabled !== true) {
 					formGroupControl.call(self);
 				}
 
 				if (selfIdValue !== self.parents('form').attr('id')) {
 					selfIdValue = self.parents('form').attr('id');
 					storedValue = self.val();
+					if (storedLabel === true) {
+						storedLabelHtml = self.parents('.'+settings.parentClass).find('label').html();
+					}
 				}
 
-				if (settings.chained.enabled == true) {
-					if ($('input#'+settings.chained.activeOnId+', select#'+settings.chained.activeOnId).length == 0) {
+				if (settings.chained.enabled === true) {
+					if ($('input#'+settings.chained.activeOnId+', select#'+settings.chained.activeOnId).length === 0) {
 						console.log('undefined chained activeOnId');	
 						return false;
 					}
-					if ($('input#'+settings.chained.id+', select#'+settings.chained.id).length == 0) {
+					if ($('input#'+settings.chained.id+', select#'+settings.chained.id).length === 0) {
 						console.log('undefined chained id');	
 						return false;
 					}
@@ -241,7 +257,7 @@
 							return false;
 						}
 					}
-					var currChained = undefined;
+					var currChained;
 					switch(self.attr('id')) {
 						case settings.chained.id:
 							currChained = $('#'+settings.chained.activeOnId);
@@ -252,7 +268,7 @@
 					}
 					storedChainedVal = currChained.val();
 					storedChainName = currChained.attr("name");
-					console.log('chained name = '+storedChainName+' chained value = '+storedChainedVal);
+					// console.log('chained name = '+storedChainName+' chained value = '+storedChainedVal);
 				}
 			});
 
@@ -306,7 +322,7 @@
 				self.next('span.glyphicon').removeAttr('style');
 
 				if (self.val().length === 0) {
-					console.log('Data Kosong');
+					// console.log('Data Kosong');
 					selfParent.removeClass(settings.unsuit.class+' '+settings.match.class+' '+settings.changes.class+' '+settings.error.class+' '+settings.success.class+' '+settings.warning.class).addClass(settings.empty.class);
 					selfLabel.children('i').attr("class", iconEmpty);
 					if (settings.empty.showText == true) {
@@ -317,7 +333,7 @@
 
 				if (self.val().length < selfMinLength) {
 					var selfLeftLength = selfMinLength - self.val().length;
-					console.log('Data kurang dari minimun panjang karater');
+					// console.log('Data kurang dari minimun panjang karater');
 					selfParent.removeClass(settings.unsuit.class+' '+settings.match.class+' '+settings.changes.class+' '+settings.empty.class+' '+settings.success.class+' '+settings.warning.class).addClass(settings.error.class);
 					selfLabel.children('i').attr("class", iconError);
 					if (settings.error.showText == true) {
@@ -344,7 +360,7 @@
 					matchLabel;
 				switch(self.attr('id')) {
 					case settings.match.matchThisId: // macthing field
-						console.log(settings.match.matchThisId);
+						// console.log(settings.match.matchThisId);
 						matchTo = $('#'+settings.match.matchToId);
 						if (storedLabel != true) {
 							selfLabel.hide();
@@ -358,21 +374,23 @@
 						}						
 						if (self.val() !== matchTo.val()) {
 							if (settings.match.showText == true) {
-								selfParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class+' '+settings.changes.class).addClass(settings.match.class);
-								selfLabel.show();
-								selfLabel.children('i').attr("class", iconUnmatch);
 								selfLabel.children('span:last-of-type').text(' '+settings.match.unmatchText);
-								self.next('span.glyphicon').removeAttr('style');
 							}
+							selfParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class+' '+settings.changes.class).addClass(settings.match.class);
+							selfLabel.children('i').attr("class", iconUnmatch);
+							self.next('span.glyphicon').removeAttr('style');
+							selfLabel.show();
 							return false;
 						}
 						selfParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class+' '+settings.match.class).addClass(settings.changes.class);
 						selfLabel.children('span:last-of-type').text(' '+settings.match.matchText);
 						selfLabel.children('i').removeClass(iconUnmatch);
+						selfLabel.hide();
+						self.next('span.glyphicon').css('top','0');
 						return false;
 					break;
 					case settings.match.matchToId: // matching reference field
-						console.log(settings.match.matchToId+ ' '+1);
+						// console.log(settings.match.matchToId);
 						matchTo = $('#'+settings.match.matchThisId);
 						matchParent = matchTo.parents('.'+settings.parentClass),
 						matchLabel = matchParent.find('label');
@@ -390,13 +408,24 @@
 						selfParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class+' '+settings.match.class);
 						selfLabel.children('span:last-of-type').text('');
 						if (self.val() !== matchTo.val()) {
-							if (settings.match.showText == true) {
-								matchParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class+' '+settings.changes.class).addClass(settings.match.class);
-								matchLabel.show();
-								matchLabel.children('i').attr("class", iconUnmatch);
-								matchLabel.children('span:last-of-type').text(' '+settings.match.unmatchText);
-								matchTo.next('span.glyphicon').removeAttr('style');
+							if (matchLabel.length < 1) {
+								matchParent.prepend('<label />');
+								matchParent.children('label').text(toCapitalizeCase(selfType));
+								matchLabel = matchParent.children('label');
+								matchLabel = iconControl.call(matchLabel);
+								var matchSpanLength = matchLabel.find('span[data-type="' + selfType + '"]').length;
+								if (matchSpanLength < 1) {
+									matchLabel.append('<span />');
+									matchLabel.children('span').last().attr("data-type", selfType);
+								}
 							}
+							if (settings.match.showText == true) {
+								matchLabel.children('span:last-of-type').text(' '+settings.match.unmatchText);
+							}
+							matchParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class+' '+settings.changes.class).addClass(settings.match.class);
+							matchLabel.children('i').attr("class", iconUnmatch);
+							matchTo.next('span.glyphicon').removeAttr('style');
+							matchLabel.show();
 							return false;
 						}
 						matchParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class+' '+settings.match.class).addClass(settings.changes.class);
@@ -409,14 +438,17 @@
 				}
 
 				if (storedValue === self.val()) {
-					console.log('Data sama dengan yang ada di storedValue');
+					// console.log('Data sama dengan yang ada di storedValue');
 					selfParent.removeClass(settings.unsuit.class+' '+settings.changes.class+' '+settings.success.class+' '+settings.warning.class+' '+settings.empty.class+' '+settings.error.class);
 					selfLabel.children('span:last-of-type').remove();
+					if (self.siblings().is('label')) {
+						selfLabel.html(storedLabelHtml);
+					}
 					return false;
 				}
 
 				if (selfTable === undefined) {
-					console.log('Data Berubah');
+					// console.log('Data Berubah');
 					selfParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class+' '+settings.success.class+' '+settings.warning.class).addClass(settings.changes.class);
 					if (settings.changes.showText == true) {
 						selfLabel.children('span:last-of-type').text(' '+settings.changes.text);
@@ -435,6 +467,10 @@
 
 					selfVal = self.val();
 					selfParent.removeClass(settings.unsuit.class+' '+settings.empty.class+' '+settings.error.class+' '+settings.success.class+' '+settings.changes.class+' '+settings.warning.class);
+					selfLabel.text(toCapitalizeCase(selfType));
+					selfLabel = iconControl.call(selfLabel);
+					selfLabel.append('<span />');
+					selfLabel.children('span').last().attr("data-type", selfType);
 
 					$.ajax({
 						url: settings.ajax.url,
@@ -462,6 +498,7 @@
 										selfLabel.children('span:last-of-type').text(' '+settings.success.text);
 									}
 								}
+								onFocusOut.call(self);
 								// console.log(data.exists);
 							}
 						},
@@ -519,17 +556,7 @@
 			});
 
 			$(this).on("focusout", function() {
-				setTimeout(function() {
-					warning = $(this).parents('form').find('.'+settings.warning.class).length;
-					success = $(this).parents('form').find('.'+settings.success.class).length;
-				 	changes = $(this).parents('form').find('.'+settings.changes.class).length;
-				 	danger = $(this).parents('form').find('.'+settings.empty.class+', .'+settings.error.class+', .'+settings.match.class+', .'+settings.unsuit.class).length;
-
-					if (((warning === 0) && (danger === 0)) && ((success > 0) || (changes > 0))) {
-						$(this).parents('form').find(':submit').removeAttr('disabled');
-					}
-					console.log('W = '+warning+' D = '+danger+' C = '+changes+' S = '+success);
-				}, 100);
+				onFocusOut.call($(this));
 			});
 		});
 	}
