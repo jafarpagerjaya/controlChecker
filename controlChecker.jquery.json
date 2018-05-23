@@ -1,12 +1,12 @@
 {
   "name": "controlChecker",
   "title": "jQuery controlChecker",
-  "description": "A form control and data checkers.",
+  "description": "A form controls and data checkers.",
   "keywords": [
     "jquery-plugins",
     "controlChecker"
   ],
-  "version": "1.2.0",
+  "version": "1.3.0",
   "author": {
     "name": "Jafar Pager Jaya",
     "url": "https://github.com/jafarpagerjaya"
