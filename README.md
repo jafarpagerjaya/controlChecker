@@ -206,13 +206,13 @@ Email validation has 3 ways to use it. First using a type `email`,the second way
       <td rowspan="2">modal</td>
       <td>enabled</td>
       <td><b>true</b> or <b>false</b></td>
-      <td><b>true</b>
+      <td><b>true</b></td>
       <td>Set plugin active even inside modal</td>
     </tr>
     <tr>
       <td>id</td>
       <td><b>String</b></td>
-      <td><b>myModal</b>
+      <td><b>myModal</b></td>
       <td>Set id modal</td>
     </tr>
     <tr>
@@ -340,7 +340,7 @@ Email validation has 3 ways to use it. First using a type `email`,the second way
     <tr>
       <td>showText</td>
       <td><b>true</b> or <b>false</b></td>
-      <td><b>true</b>
+      <td><b>true</b></td>
       <td>Set text unmatch will show or hide</td>
     </tr>
     <tr>
