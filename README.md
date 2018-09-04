@@ -495,27 +495,33 @@ Email validation has 3 ways to use it. First using a type `email`,the second way
 <h3>Check Data To Server</h3>
 <blockquote>HTML</blockquote>
 In html area add data atribute withname data-table with value table name who will be using for checking
+
 `<input type="email" class="check" name="email" minlength="6" maxlength="50 data-table="users">"`
+
 <blockquote>JS</blockquote>
+
 `$('.check').controlChecker({
   ajax: {
     url: 'example.com', // url for check the data
     type: 'post'
   }
  });`
+ 
  <blockquote>Server Side Checking</blockquote>
  In this example will use PHP and must return a json object with key name is "exists" and the return value is boolean (true or false).
  So if in the database have same value as user new input value, the return is true that mean the input value are not available (exists = true) else return (exists = false) that mean input are available. 
 <b>NB: remember field are name in input atribute, and table are from data-table atribut who has give in html code.
 return format allowed are json only with key name exists and boolean return value.</b>
+
  `<?php 
   if (isset($_POST['field']) && isset($_POST['table']) && isset($_POST['value'])) {
-	$field       = strtolower(trim($_POST['field']));
-	$value       = strtolower(trim($_POST['value']));
-	$table       = strtolower(trim($_POST['table']));
-  $output      = ['exists' => false]; // json format key exists and give false value before checking
+  
+  // $field       = strtolower(trim($_POST['field']));
+  // $value       = strtolower(trim($_POST['value']));
+  // $table       = strtolower(trim($_POST['table']));
+  // $output      = ['exists' => false]; // json format key exists and give false value before checking
 	
-	// your query like "SELECT COUNT(*) as c_data FROM " . {$table} . " WHERE " . {$field} . " = " . {$value}. ";
+  // your query like "SELECT COUNT(*) as c_data FROM " . {$table} . " WHERE " . {$field} . " = " . {$value}. ";
   
   // bla bla bla until result of your query lets store in variable called $rest
   
@@ -530,12 +536,16 @@ return format allowed are json only with key name exists and boolean return valu
 What it is mean? Chained Checking is for check data but will be check to others field too.
 For example we need some informations about users bank accound id. In normally case a user bank account have unique number but that only happen in the same bank, how about others bank? There a posibility a user have same account number but the bank is difference. So chakned checking will use for that purpose.
 <blockquote>HTML</blockquote>
-// example
 First input is bank id
-<input type="text" name="bank_code" class="check" data-table="banks" id="bank_code">
+
+`<input type="text" name="bank_code" class="check" data-table="banks" id="bank_code">`
+
 Seccond input is bank account
-<input type="text" name="bank_account" class="check" data-table="users" id="bank_account">
+
+`<input type="text" name="bank_account" class="check" data-table="users" id="bank_account">`
+
 <blockquote>JS</blockquote>
+
 `$('.check').controlChecker({
   ajax: {
     url: 'example.com', // url for check the data
@@ -547,7 +557,9 @@ Seccond input is bank account
 				activeOnId: 'bank_account' // input bank account id
   }
  });`
+ 
  <blockquote>Server Side Checking</blockquote>
+ 
  `<?php 
   if (isset($_POST['field']) && isset($_POST['table']) && isset($_POST['value']) && isset($_POST['prevColumnName']) && isset($_POST['prevColumnValue'])) {
 	$field        = strtolower(trim($_POST['field']));
@@ -563,4 +575,5 @@ Seccond input is bank account
     echo json_encode($output);
     return false;
 }`
+
 <h1>Updated Doc 4/9/2018. Other Doc On Progress</h1>
